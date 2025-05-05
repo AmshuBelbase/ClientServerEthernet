@@ -7,6 +7,7 @@
 //  - QNEthernet.h (Teensy 4.x compatible Ethernet library)
 //  - IPAddress.h
 
+// Move ClientServerEthernet.h to a subfolder of your Arduino/libraries/ directory:
 
 #ifndef CLIENT_SERVER_ETHERNET_H
 #define CLIENT_SERVER_ETHERNET_H
@@ -18,7 +19,6 @@
 using namespace qindesign::network;
 using namespace std;
 
- 
 // This class handles Ethernet initialization, TCP connection management, and structured data transmission/reception.
 // T in template is the data type of the structure being sent/received (typically a struct).
 
@@ -31,7 +31,7 @@ public:
     IPAddress ip, subnet, serverIP;
 
     uint32_t lastSend = 0;
-    uint32_t timeout = 10000; // 10ms timeout
+    uint32_t timeout = 10000;  // 10ms timeout
     uint8_t buffer[sizeof(T)]; // Temporary buffer to store incoming bytes.
     size_t bufIndex = 0;
 
@@ -43,8 +43,7 @@ public:
         Serial.println("Default Ethernet Initialized.");
     }
 
-
-    // Initializes Ethernet settings, assigns data pointer to store received information, and connects to server. 
+    // Initializes Ethernet settings, assigns data pointer to store received information, and connects to server.
     ClientServerEthernet(vector<int> ipAddress, vector<int> subnetMask, vector<int> serverAddress, T *inputData) : data(inputData)
     {
         ip = IPAddress(ipAddress[0], ipAddress[1], ipAddress[2], ipAddress[3]);
@@ -68,7 +67,6 @@ public:
         // Disabling Nagle sends smaller packets immediately, reducing latency but increasing network overhead, as more packets are transmitted more frequently.
     }
 
-
     // Sends a request byte (0x01) to the server. Optionally prints debug information.
     void sendRequest(bool debugMode = false)
     {
@@ -82,9 +80,10 @@ public:
         }
 
         // Wait for data availability
-        while (!client.available()){}
+        while (!client.available())
+        {
+        }
     }
-
 
     // Ensures TCP connection is maintained. Reconnects if connection is lost.
     void MaintainConnection()
@@ -95,7 +94,6 @@ public:
             client.setNoDelay(true); // Disable Nagle algorithm
         }
     }
-
 
     // Sends request and receives structured data from server.
     // If enough bytes are received to match the size of type T, they are copied into the data pointer. Otherwise, waits until timeout.

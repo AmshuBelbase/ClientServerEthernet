@@ -32,6 +32,17 @@ This project implements a generic TCP client over Ethernet for **Teensy 4.x** bo
 
 ---
 
+## Use Libraries Folder
+
+Move ClientServerEthernet.h to a subfolder of your Arduino/libraries/ directory.
+
+```
+Arduino/
+└── libraries/
+    └── ClientServerEthernet/
+        └── ClientServerEthernet.h
+```
+
 ## Struct Format
 
 ```cpp
