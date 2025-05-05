@@ -1,15 +1,16 @@
-#include "ClientServerEthernet.h"
+// Move ClientServerEthernet.h to a subfolder of your Arduino/libraries/ directory.
+#include <ClientServerEthernet.h>
 
-// ---- IMPORTANT ----
+// <<<< IMPORTANT ----
 
 // Ensure the struct is packed with no padding between members.
 // This is important for consistent memory layout, especially when sending data over serial or network.
 // #pragma pack(1) → No padding (tightest packing).
 
-// int a = 1000; -> size may vary (typically 4 bytes) by system and compiler
+// int a = 1000; -> size may vary (typically 4 bytes) across systems and compilers
 // int16_t b = 1000; -> guaranteed to be 2 bytes across all platforms
 
-// ---- IMPORTANT ----
+// ---- IMPORTANT >>>>
 
 #pragma pack(push, 1) // save current alignment and set to 1 byte
 struct ControllerData { 
