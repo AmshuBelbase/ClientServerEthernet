@@ -83,6 +83,15 @@ private:
         // Wait for data availability
         while (!client.available())
         {
+            if(!client.connected()){
+                while (!client.connected())
+                {
+                    client.connect(serverIP, 10069);
+                    client.setNoDelay(true); // Disable Nagle algorithm
+                }
+                client.write(0x01);
+                client.flush();
+            }
         }
     }
 
